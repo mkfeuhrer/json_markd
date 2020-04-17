@@ -2,7 +2,7 @@ package utils
 
 import (
 	"errors"
-	"json-markd/logger"
+	"json_markd/logger"
 	"strings"
 )
 

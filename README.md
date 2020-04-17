@@ -7,10 +7,10 @@ Super useful for documenting APIs, maintaining todo list which can be used anywh
 ## Installation
 
 ```go
-go get -u "github.com/mkfeuhrer/json-markd"
+go get -u "github.com/mkfeuhrer/json_markd"
 ```
 
-Then use it using the ParseMarkdown functions -
+Then use it using the ParseMarkdown functions. Check example.go for usage.
 
 ```go
 parser.SetTabSpaceValue(2) // This is important step, library will crash without this.

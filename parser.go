@@ -3,9 +3,6 @@ package json_markd
 import (
 	"fmt"
 	"io/ioutil"
-	"json-markd/logger"
-	"json-markd/stack"
-	"json-markd/utils"
 	"strings"
 )
 

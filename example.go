@@ -2,7 +2,7 @@ package json_markd
 
 import (
 	"fmt"
-	"json-markd/logger"
+	"json_markd/logger"
 )
 
 // Example usage for json_markd

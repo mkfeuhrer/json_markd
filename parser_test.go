@@ -2,7 +2,7 @@ package json_markd
 
 import (
 	"errors"
-	"json-markd/logger"
+	"json_markd/logger"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
