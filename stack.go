@@ -10,40 +10,40 @@ import (
 // Components from https://flaviocopes.com/golang-data-structure-stack/
 
 // Item the type of the stack
-type Item generic.Type
+type item generic.Type
 
 // ItemStack the stack of Items
-type ItemStack struct {
-	items []Item
+type itemStack struct {
+	items []item
 	lock  sync.RWMutex
 }
 
 // New creates a new ItemStack
-func (s *ItemStack) New() *ItemStack {
-	s.items = []Item{}
+func (s *itemStack) new() *itemStack {
+	s.items = []item{}
 	return s
 }
 
 // Push adds an Item to the top of the stack
-func (s *ItemStack) Push(t Item) {
+func (s *itemStack) push(t item) {
 	s.lock.Lock()
 	s.items = append(s.items, t)
 	s.lock.Unlock()
 }
 
-func (s *ItemStack) Size() int {
+func (s *itemStack) size() int {
 	return len(s.items)
 }
 
-func (s *ItemStack) Top() *Item {
+func (s *itemStack) top() *item {
 	item := s.items[len(s.items)-1]
 	return &item
 }
 
 // Pop removes an Item from the top of the stack
-func (s *ItemStack) Pop() (*Item, error) {
+func (s *itemStack) pop() (*item, error) {
 	s.lock.Lock()
-	if s.Size() == 0 {
+	if s.size() == 0 {
 		return nil, errors.New(".errors.stack_empty")
 	}
 	item := s.items[len(s.items)-1]
