@@ -1,4 +1,4 @@
-package parser
+package json_markd
 
 import (
 	"fmt"

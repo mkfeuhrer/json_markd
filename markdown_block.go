@@ -1,4 +1,4 @@
-package parser
+package json_markd
 
 type MarkdownBlock struct {
 	TabCount int
