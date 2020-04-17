@@ -1,0 +1,17 @@
+- data : object
+  - name : string
+  - age : integer
+  - income : double
+  - vehicles: array
+    - cars: object
+      - name: string
+      - price: double
+  - apps : array
+    - transport : array
+      - gojek : string
+      - uber : string
+    - food : array
+      - zomato : string
+      - swiggy : string
+- errors: object
+  - type: string
