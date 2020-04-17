@@ -1,7 +1,6 @@
 package json_markd
 
 import (
-	"context"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -25,6 +24,9 @@ func panicIfError(err error) {
 	}
 }
 
+// SetupLogger sets up logger for use. You can use all the logrus library functions eg. logger.Log.Error()
+//
+// Please refer to https://github.com/sirupsen/logrus
 func SetupLogger() {
 	level, err := logrus.ParseLevel("DEBUG")
 	panicIfError(err)
@@ -37,15 +39,4 @@ func SetupLogger() {
 	}
 
 	Log = &Logger{logrusVar}
-}
-
-func WithContext(ctx context.Context, entry *logrus.Entry) context.Context {
-	return context.WithValue(ctx, logTracerKey, entry)
-}
-
-func FromContext(ctx context.Context) *logrus.Entry {
-	if log, ok := ctx.Value(logTracerKey).(*logrus.Entry); ok {
-		return log
-	}
-	return logrus.NewEntry(Log.Logger)
 }

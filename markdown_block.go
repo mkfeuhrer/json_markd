@@ -1,13 +1,13 @@
 package json_markd
 
-type MarkdownBlock struct {
+type markdownBlock struct {
 	TabCount int
 	Key      string
 	Value    DataType
 }
 
-func NewMarkdownBlock(tabCount int, key string, value DataType) MarkdownBlock {
-	return MarkdownBlock{
+func newMarkdownBlock(tabCount int, key string, value DataType) markdownBlock {
+	return markdownBlock{
 		TabCount: tabCount,
 		Key:      key,
 		Value:    value,
@@ -30,7 +30,7 @@ func getDatatypeFromVal(value string) DataType {
 	return Invalid
 }
 
-func (client MarkdownBlock) GetSuffixForDatatype() string {
+func (client markdownBlock) GetSuffixForDatatype() string {
 	switch client.Value {
 	case Object:
 		return "}"
@@ -46,7 +46,7 @@ func (client MarkdownBlock) GetSuffixForDatatype() string {
 	return "}"
 }
 
-func (client MarkdownBlock) GetPrefixForDatatype() string {
+func (client markdownBlock) GetPrefixForDatatype() string {
 	switch client.Value {
 	case Object:
 		return client.Key + " : {\n"
@@ -62,7 +62,7 @@ func (client MarkdownBlock) GetPrefixForDatatype() string {
 	return "{\n"
 }
 
-func (client MarkdownBlock) GetPrefixForDatatypeWhenParentIsArray() string {
+func (client markdownBlock) GetPrefixForDatatypeWhenParentIsArray() string {
 	switch client.Value {
 	case Object:
 		return "{\n"

@@ -1,3 +1,6 @@
+// json_markd helps you create json from markdown lists.
+//
+// Useful for creating API docs, personal todo, which can be used as json anywhere.
 package json_markd
 
 import (
@@ -6,23 +9,26 @@ import (
 	"strings"
 )
 
+// Allowed markdown element types
 type DataType int
 
 const (
-	Object  DataType = 0
-	String  DataType = 1
-	Integer DataType = 2
-	Double  DataType = 3
-	Array   DataType = 4
-	Invalid DataType = 4
+	Object  DataType = 0 // use object in markdown
+	String  DataType = 1 // use string in markdown
+	Integer DataType = 2 // use integer in markdown
+	Double  DataType = 3 // use double in markdown
+	Array   DataType = 4 // use array in markdown
+	Invalid DataType = 5
 )
 
 var tabSpacesValue = 2
 
+// SetTabSpaceValue is to set spaces used for tab in markdown. Eg. 2,4
 func SetTabSpaceValue(val int) {
 	tabSpacesValue = val
 }
 
+// ParseMarkdown accepts a filepath to a markdown file and return JSON string for same
 func ParseMarkdown(filepath string) (string, error) {
 	SetupLogger()
 	markdownData, err := ioutil.ReadFile(filepath)
@@ -47,24 +53,24 @@ func ParseMarkdown(filepath string) (string, error) {
 	return result, nil
 }
 
-func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
+func generateMarkdownString(markdownBlockList []markdownBlock) string {
 	result := "{\n"
-	s := ItemStack{}
-	s.New()
+	s := itemStack{}
+	s.new()
 	for ind, markdownBlock := range markdownBlockList {
 		// if at last element
 		if (ind + 1) == len(markdownBlockList) {
 			topIndex := 0
-			if s.Size() > 0 {
-				topIndex = (*s.Top()).(int)
+			if s.size() > 0 {
+				topIndex = (*s.top()).(int)
 			}
 			if markdownBlockList[topIndex].Value == Array {
 				result += strings.Repeat("  ", markdownBlock.TabCount+1) + markdownBlock.GetPrefixForDatatypeWhenParentIsArray() + markdownBlock.GetSuffixForDatatype() + "\n"
 			} else {
 				result += strings.Repeat("  ", markdownBlock.TabCount+1) + markdownBlock.GetPrefixForDatatype() + markdownBlock.GetSuffixForDatatype() + "\n"
 			}
-			for s.Size() > 0 {
-				item, _ := s.Pop()
+			for s.size() > 0 {
+				item, _ := s.pop()
 				index := (*item).(int)
 				result += strings.Repeat("  ", markdownBlockList[index].TabCount+1) + markdownBlockList[index].GetSuffixForDatatype() + "\n"
 			}
@@ -74,19 +80,19 @@ func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
 		if markdownBlock.TabCount < markdownBlockList[ind+1].TabCount {
 			// append start string to result
 			topIndex := 0
-			if s.Size() > 0 {
-				topIndex = (*s.Top()).(int)
+			if s.size() > 0 {
+				topIndex = (*s.top()).(int)
 			}
 			if markdownBlockList[topIndex].Value == Array {
 				result += strings.Repeat("  ", markdownBlock.TabCount+1) + markdownBlock.GetPrefixForDatatypeWhenParentIsArray()
 			} else {
 				result += strings.Repeat("  ", markdownBlock.TabCount+1) + markdownBlock.GetPrefixForDatatype()
 			}
-			s.Push(ind)
+			s.push(ind)
 		} else {
 			topIndex := 0
-			if s.Size() > 0 {
-				topIndex = (*s.Top()).(int)
+			if s.size() > 0 {
+				topIndex = (*s.top()).(int)
 			}
 			if markdownBlock.TabCount == markdownBlockList[ind+1].TabCount {
 				if markdownBlockList[topIndex].Value == Array {
@@ -101,14 +107,14 @@ func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
 					result += strings.Repeat("  ", markdownBlock.TabCount+1) + markdownBlock.GetPrefixForDatatype() + markdownBlock.GetSuffixForDatatype() + "\n"
 				}
 			}
-			for s.Size() > 0 {
-				index := (*s.Top()).(int)
+			for s.size() > 0 {
+				index := (*s.top()).(int)
 				if markdownBlockList[index].TabCount == markdownBlockList[ind+1].TabCount {
 					result += strings.Repeat("  ", markdownBlockList[index].TabCount+1) + markdownBlockList[index].GetSuffixForDatatype() + ",\n"
-					s.Pop()
+					s.pop()
 				} else if markdownBlockList[index].TabCount > markdownBlockList[ind+1].TabCount {
 					result += strings.Repeat("  ", markdownBlockList[index].TabCount+1) + markdownBlockList[index].GetSuffixForDatatype() + "\n"
-					s.Pop()
+					s.pop()
 				} else {
 					break
 				}
@@ -119,16 +125,16 @@ func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
 	return result
 }
 
-func createMarkdownBlockList(lineDataList []string) ([]MarkdownBlock, error) {
-	var markdownBlockList []MarkdownBlock
+func createMarkdownBlockList(lineDataList []string) ([]markdownBlock, error) {
+	var markdownBlockList []markdownBlock
 	for _, line := range lineDataList {
-		tabCount, lineWithoutTabs := RemoveTabsFromLines(line, tabSpacesValue)
-		key, val, err := ParseLine(lineWithoutTabs)
+		tabCount, lineWithoutTabs := removeTabsFromLines(line, tabSpacesValue)
+		key, val, err := parseLine(lineWithoutTabs)
 		if err != nil {
-			return []MarkdownBlock{}, err
+			return []markdownBlock{}, err
 		}
 		dataType := getDatatypeFromVal(val)
-		markdownBlock := NewMarkdownBlock(tabCount, key, dataType)
+		markdownBlock := newMarkdownBlock(tabCount, key, dataType)
 		markdownBlockList = append(markdownBlockList, markdownBlock)
 	}
 	return markdownBlockList, nil

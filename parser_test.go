@@ -15,7 +15,7 @@ func TestCreateMarkdownBlockList(t *testing.T) {
 			" - data: object",
 		}
 		t.Run("it should return correct response", func(t *testing.T) {
-			expectedResponse := []MarkdownBlock{MarkdownBlock{TabCount: 0, Key: "\"data\"", Value: 0}}
+			expectedResponse := []markdownBlock{markdownBlock{TabCount: 0, Key: "\"data\"", Value: 0}}
 			markdownBlock, _ := createMarkdownBlockList(lineDataList)
 			assert.Equal(t, expectedResponse, markdownBlock)
 		})
