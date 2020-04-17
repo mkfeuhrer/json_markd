@@ -13,7 +13,7 @@ go get -u "github.com/mkfeuhrer/json-markd"
 Then use it using the ParseMarkdown functions -
 
 ```go
-parser.SetTabSpaceValue(2)
+parser.SetTabSpaceValue(2) // This is important step, library will crash without this.
 result, err := parser.ParseMarkdown("data/sample_api.md") // your markdown file path
 if err != nil {
     logger.Log.Panic(err)

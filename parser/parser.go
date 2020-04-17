@@ -20,7 +20,7 @@ const (
 	Invalid DataType = 4
 )
 
-var tabSpacesValue int
+var tabSpacesValue = 2
 
 func SetTabSpaceValue(val int) {
 	tabSpacesValue = val
