@@ -1,4 +1,4 @@
-package logger
+package json_markd
 
 import (
 	"context"

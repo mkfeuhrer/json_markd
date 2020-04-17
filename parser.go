@@ -24,7 +24,7 @@ func SetTabSpaceValue(val int) {
 }
 
 func ParseMarkdown(filepath string) (string, error) {
-	logger.SetupLogger()
+	SetupLogger()
 	markdownData, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Println("File reading error", err)
@@ -49,7 +49,7 @@ func ParseMarkdown(filepath string) (string, error) {
 
 func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
 	result := "{\n"
-	s := stack.ItemStack{}
+	s := ItemStack{}
 	s.New()
 	for ind, markdownBlock := range markdownBlockList {
 		// if at last element
@@ -122,8 +122,8 @@ func generateMarkdownString(markdownBlockList []MarkdownBlock) string {
 func createMarkdownBlockList(lineDataList []string) ([]MarkdownBlock, error) {
 	var markdownBlockList []MarkdownBlock
 	for _, line := range lineDataList {
-		tabCount, lineWithoutTabs := utils.RemoveTabsFromLines(line, tabSpacesValue)
-		key, val, err := utils.ParseLine(lineWithoutTabs)
+		tabCount, lineWithoutTabs := RemoveTabsFromLines(line, tabSpacesValue)
+		key, val, err := ParseLine(lineWithoutTabs)
 		if err != nil {
 			return []MarkdownBlock{}, err
 		}

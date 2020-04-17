@@ -1,8 +1,7 @@
-package utils
+package json_markd
 
 import (
 	"errors"
-	"json_markd/logger"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -23,7 +22,7 @@ func TestTrimString(t *testing.T) {
 }
 
 func TestParseLine(t *testing.T) {
-	logger.SetupLogger()
+	SetupLogger()
 	t.Run("when correct input data is passed", func(t *testing.T) {
 		t.Run("it should return correct result", func(t *testing.T) {
 			expectedKey := "\"data\""

@@ -1,8 +1,7 @@
-package utils
+package json_markd
 
 import (
 	"errors"
-	"json_markd/logger"
 	"strings"
 )
 
@@ -29,7 +28,7 @@ func ParseLine(line string) (string, string, error) {
 	line = TrimString(line, " ")
 	keyValueList := strings.Split(line, ":")
 	if len(keyValueList) < 2 {
-		logger.Log.Error(".errors.invalid_markdown_list_format")
+		Log.Error(".errors.invalid_markdown_list_format")
 		return "", "", errors.New(".errors.invalid_markdown_list_format")
 	}
 	// return error if len(keyValueList) < 2

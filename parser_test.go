@@ -2,7 +2,6 @@ package json_markd
 
 import (
 	"errors"
-	"json_markd/logger"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,7 +9,7 @@ import (
 
 func TestCreateMarkdownBlockList(t *testing.T) {
 	SetTabSpaceValue(2)
-	logger.SetupLogger()
+	SetupLogger()
 	t.Run("when correct data list is passed", func(t *testing.T) {
 		lineDataList := []string{
 			" - data: object",
@@ -37,7 +36,7 @@ func TestCreateMarkdownBlockList(t *testing.T) {
 
 func TestParseMarkdown(t *testing.T) {
 	SetTabSpaceValue(2)
-	logger.SetupLogger()
+	SetupLogger()
 	t.Run("when correct file is passed", func(t *testing.T) {
 		t.Run("it should return correct response", func(t *testing.T) {
 			expectedResponse := "{\n  \"data\" : {\n    \"name\" : \"random string\",\n    \"age\" : 0,\n    \"income\" : 0.0,\n    \"vehicles\" : [\n      {\n        \"name\" : \"random string\",\n        \"price\" : 0.0\n      }\n    ],\n    \"apps\" : [\n      [\n        \"random string\",\n        \"random string\"\n      ],\n      [\n        \"random string\",\n        \"random string\"\n      ]\n    ]\n  },\n  \"errors\" : {\n    \"type\" : \"random string\"\n  }\n}"
