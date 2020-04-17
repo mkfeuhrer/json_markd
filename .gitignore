@@ -1,0 +1,14 @@
+*.swp
+vendor
+.env
+.DS_Store
+**/coverage.out
+coverage-all.out
+*.rdb
+*.log
+*.tasks
+.idea
+.vscode
+*.tmp
+*.out
+**.zip
