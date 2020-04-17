@@ -1,7 +1,7 @@
 # JSON-Markd
 
 <p align="center">
-<img alt="json_markd" title="JSON-Markd" src="https://raw.githubusercontent.com/mkfeuhrer/json_markd/master/images/json_markd.png" width="550">
+<img alt="json_markd" title="JSON-Markd" src="https://raw.githubusercontent.com/mkfeuhrer/json_markd/master/images/json_markd.png" width="550"> </img>
 </p>
 
 Go library for converting markdown lists to json.
