@@ -5,6 +5,7 @@ package json_markd
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"strings"
 )
@@ -29,9 +30,9 @@ func SetTabSpaceValue(val int) {
 }
 
 // ParseMarkdown accepts a filepath to a markdown file and return JSON string for same
-func ParseMarkdown(filepath string) (string, error) {
+func ParseMarkdown(src io.Reader) (string, error) {
 	SetupLogger()
-	markdownData, err := ioutil.ReadFile(filepath)
+	markdownData, err := ioutil.ReadAll(src)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return "", err
